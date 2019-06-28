@@ -8,12 +8,12 @@ class EventForm extends Component {
         date: "",
         city: "",
         venue: "",
-        hostedBy: ""
+        hostedBy: "",
     }
 
     handleFormSubmit = e => {
         e.preventDefault();
-        console.log(this.state);
+        this.props.createEvent(this.state);
     }
 
     handleInputChange = ({target: {name, value}}) => {
