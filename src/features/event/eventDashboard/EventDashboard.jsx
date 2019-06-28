@@ -60,12 +60,26 @@ class EventDashboard extends Component {
     state = {
         events: eventsFromDashboard,
         isOpen: false,
+        selectedEvent: null,
     };
 
-    handleIsOpenToggle = () => {
-        this.setState(({ isOpen }) => ({
-            isOpen: !isOpen
-        }));
+    // handleIsOpenToggle = () => {
+    //     this.setState(({ isOpen }) => ({
+    //         isOpen: !isOpen,
+    //     }));
+    // }
+
+    handleCreateFormOpen = () => {
+        this.setState({
+            isOpen: true,
+            selectedEvent: null
+        });
+    }
+
+    handleFormCancel = () => {
+        this.setState({
+            isOpen: false,
+        })
     }
 
     handleCreateEvent = newEvent => {
@@ -75,21 +89,32 @@ class EventDashboard extends Component {
             events: [...events, newEvent],
             isOpen: false,
         }));
+    }
 
+    handleSelectEvent = event => {
+        this.setState({
+            selectedEvent: event,
+            isOpen: true
+        });
     }
 
     render() {
-        const { events, isOpen } = this.state
+        const { events, isOpen, selectedEvent } = this.state
         return (
             <Grid>
                 <Grid.Column width={10}>
-                    <EventList events={events} />
+                    <EventList events={events} selectEvent={ this.handleSelectEvent } />
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Button onClick={ this.handleIsOpenToggle } positive content="create Event" />
+                    <Button
+                        onClick={ this.handleCreateFormOpen }
+                        positive
+                        content="create Event"
+                    />
                     { isOpen && (
                         <EventForm
-                            cancelFormOpen={ this.handleIsOpenToggle }
+                            selectedEvent={ selectedEvent }
+                            cancelFormOpen={ this.handleFormCancel }
                             createEvent={ this.handleCreateEvent }
                         />
                     )}
