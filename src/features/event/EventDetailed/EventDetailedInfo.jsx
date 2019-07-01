@@ -30,7 +30,7 @@ const EventDetailedInfo = ({ event }) => {
                     <Icon name="marker" size="large" color="teal" />
                   </Grid.Column>
                   <Grid.Column width={11}>
-                    <span>{ event.vanue }</span>
+                    <span>{ event.venue }</span>
                   </Grid.Column>
                   <Grid.Column width={4}>
                     <Button color="teal" size="tiny" content="Show Map" />
