@@ -22,7 +22,6 @@ class NavBar extends Component {
 
     render() {
         const { authenticated } = this.state;
-        console.log("authenticated: ", authenticated);
         return (
             <Menu inverted fixed="top">
             <Container>
@@ -32,8 +31,7 @@ class NavBar extends Component {
                 </Menu.Item>
                 <Menu.Item as={ NavLink } to='/events' name="Events" />
                 <Menu.Item as={ NavLink } to='/people' name="People" />
-                <Menu.Item as={ NavLink } to='/test' name="Test" />
-                
+                <Menu.Item as={ NavLink } to='/test' name="Test" />           
                 <Menu.Item>
                     <Button
                         as={ Link }
