@@ -7,10 +7,10 @@ const HomePage = ({history}) => {
             <Container text>
                 <Header as='h1' inverted>
                     <Image
-                        size='massive'
-                        src='/assets/logo.png'
-                        alt='logo'
-                        style={{ marginBottom: 12 }}
+                    size='massive'
+                    src='/assets/logo.png'
+                    alt='logo'
+                    style={{ marginBottom: 12 }}
                     />
                     Re-vents
                 </Header>

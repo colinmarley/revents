@@ -1,9 +1,28 @@
 import React, { Component } from 'react'
 import { Menu, Container, Button } from 'semantic-ui-react';
 import { NavLink, Link } from 'react-router-dom';
+import SignedOutMenu from '../Menus/SignedOutMenu';
+import SignedInMenu from '../Menus/SignedInMenu';
 
 class NavBar extends Component {
+    state = {
+        authenticated: false,
+    }
+
+    handleSignIn = () => { 
+        this.setState({ authenticated: true });
+        console.log("clicked SignIn");
+    }
+
+    handleSignOut = () => {
+        this.setState({ authenticated: false });
+        this.props.history.push('/');
+    }
+
+
     render() {
+        const { authenticated } = this.state;
+        console.log("authenticated: ", authenticated);
         return (
             <Menu inverted fixed="top">
             <Container>
@@ -23,10 +42,11 @@ class NavBar extends Component {
                         inverted
                         content="Create Event" />
                 </Menu.Item>
-                <Menu.Item position="right">
-                    <Button basic inverted content="Login" />
-                    <Button basic inverted content="Sign Out" style={{marginLeft: '0.5em'}} />
-                </Menu.Item>
+                { authenticated ? (
+                    <SignedInMenu signOut={ this.handleSignOut } />
+                ) : (
+                    <SignedOutMenu signIn={ this.handleSignIn } />
+                ) }
             </Container>
             </Menu>
         )
