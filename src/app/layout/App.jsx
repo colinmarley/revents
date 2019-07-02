@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import EventDashboard from '../../features/event/EventDashboard/EventDashboard';
-import NavBar from '../../features/nav/navBar/NavBar';
+import NavBar from '../../features/nav/NavBar/NavBar';
 import { Container } from 'semantic-ui-react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
