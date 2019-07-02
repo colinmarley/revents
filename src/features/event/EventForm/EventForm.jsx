@@ -11,20 +11,15 @@ import SelectInput from '../../../app/common/form/SelectInput';
 const mapState = (state, ownProps) => {
 	const eventId = ownProps.match.params.id;
 
-	let event = {
-		title: '',
-		date: '',
-		city: '',
-		venue: '',
-		hostedBy: '',
-	};
+	let event = {};
 
 	if (eventId && state.events.length > 0) {
 		event = state.events.filter(event => event.id === eventId)[0];
 	}
 
+	//Redux form requires event details property be named initialValues to automatically handle form population
 	return {
-		event,
+		initialValues: event,
 	};
 };
 
@@ -47,29 +42,36 @@ const category = [
 ];
 
 class EventForm extends Component {
-	handleFormSubmit = e => {
-		e.preventDefault();
-		if (this.state.id) {
-			this.props.updateEvent(this.state);
-			this.props.history.push(`/events/${this.state.id}`);
+	onFormSubmit = values => {
+		const {
+			initialValues: { id },
+		} = this.props;
+		if (id) {
+			this.props.updateEvent(values);
+			this.props.history.push(`/events/${id}`);
 		} else {
 			const newEvent = {
-				...this.state,
+				...values,
 				id: cuid(),
 				hostPhotoURL: '/assets/user.png',
+				hostedBy: 'Bob',
 			};
 			this.props.createEvent(newEvent);
-			this.props.history.push(`/events`);
+			this.props.history.push(`/events/${newEvent.id}`);
 		}
 	};
 
 	render() {
+		const { history, initialValues } = this.props;
 		return (
 			<Grid>
 				<Grid.Column width={10}>
 					<Segment>
 						<Header sub color='teal' content='Event Details' />
-						<Form onSubmit={this.handleFormSubmit} autoComplete='off'>
+						<Form
+							onSubmit={this.props.handleSubmit(this.onFormSubmit)}
+							autoComplete='off'
+						>
 							<Field
 								name='title'
 								component={TextInput}
@@ -107,7 +109,14 @@ class EventForm extends Component {
 							<Button positive type='submit'>
 								Submit
 							</Button>
-							<Button onClick={this.props.history.goBack} type='button'>
+							<Button
+								onClick={
+									initialValues.id
+										? () => history.push(`/events/${initialValues.id}`)
+										: () => history.push('/events')
+								}
+								type='button'
+							>
 								Cancel
 							</Button>
 						</Form>
