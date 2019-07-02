@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { Segment, Form, Button } from 'semantic-ui-react';
-import {createEvent, updateEvent} from '../eventActions';
+import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react';
+import { createEvent, updateEvent } from '../eventActions';
 import cuid from 'cuid';
 import TextInput from '../../../app/common/form/TextInput';
 
@@ -21,7 +21,7 @@ const mapState = (state, ownProps) => {
         event = state.events.filter(event => event.id === eventId)[0]
     }
 
-    return { 
+    return {
         event
     }
 }
@@ -33,27 +33,13 @@ const mapDispatch = dispatch => ({
 
 class EventForm extends Component {
 
-    state = {
-        ...this.props.event
-    };
-
-    componentDidMount() {
-        if(this.props.selectedEvent != null) {
-
-            console.log(this.props.selectEvent);
-            this.setState({
-                ...this.props.selectedEvent
-            });
-        }
-    }
-
     handleFormSubmit = e => {
         e.preventDefault();
-        if(this.state.id) {
+        if (this.state.id) {
             this.props.updateEvent(this.state);
             this.props.history.push(`/events/${this.state.id}`);
         } else {
-        const newEvent = {
+            const newEvent = {
                 ...this.state,
                 id: cuid(),
                 hostPhotoURL: '/assets/user.png'
@@ -63,57 +49,31 @@ class EventForm extends Component {
         }
     }
 
-    handleInputChange = ({target: {name, value}}) => {
-        this.setState({
-            [name]: value,
-        });
-    }
-
     render() {
-        const { title, date, city, venue, hostedBy } = this.state;
         return (
-            <Segment>
-                <Form onSubmit={ this.handleFormSubmit } autoComplete='off' >
-                    <Field name='title' component={TextInput} placeholder='Event Title' />
-                    <Form.Field>
-                        <label>Event Date</label>
-                        <input
-                            name='date'
-                            onChange={ this.handleInputChange }
-                            type="date"
-                            value={ date }
-                            placeholder="Event Date" />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>City</label>
-                        <input
-                            name='city'
-                            onChange={ this.handleInputChange }
-                            placeholder="City event is taking place"
-                            value={ city } />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Venue</label>
-                        <input
-                            name='venue'
-                            onChange={ this.handleInputChange }
-                            placeholder="Enter the Venue of the event"
-                            value={ venue } />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Hosted By</label>
-                        <input
-                            name='hostedBy'
-                            onChange={ this.handleInputChange }
-                            placeholder="Enter the name of person hosting"
-                            value={ hostedBy } />
-                    </Form.Field>
-                    <Button positive type="submit">
-                        Submit
-                    </Button>
-                    <Button onClick={ this.props.history.goBack } type="button">Cancel</Button>
-                </Form>
-            </Segment>
+            <Grid>
+                <Grid.Column width={10}>
+                    <Segment>
+                        <Header sub color='teal' content='Event Details' />
+                        <Form onSubmit={this.handleFormSubmit} autoComplete='off' >
+                            <Field name='title' component={TextInput} placeholder='Give your event a name' />
+                            <Field name='category' component={TextInput} placeholder='What is your event about?' />
+                            <Field name='description' component={TextInput} placeholder='Tell us about your event' />
+                            <Header sub color='teal' content='Event Location Details' />
+                            <Field name='city' component={TextInput} placeholder='Event city' />
+                            <Field name='venue' component={TextInput} placeholder='Event venue' />
+                            <Field name='date' component={TextInput} placeholder='Event date' />
+
+                            <Button positive type="submit">
+                                Submit
+                            </Button>
+                            <Button onClick={this.props.history.goBack} type="button">
+                                Cancel
+                            </Button>
+                        </Form>
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         )
     }
 }
@@ -123,6 +83,6 @@ export default connect(
     mapDispatch
 )(
     reduxForm(
-        {form: 'eventForm'}
+        { form: 'eventForm' }
     )(EventForm)
 );
