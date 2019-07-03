@@ -17,13 +17,20 @@ class TestPlaceInput extends React.Component {
     this.setState({ address });
   };
 
+  handleSelect = (address) => {
+    this.setState({
+      address
+    });
+    this.props.handleSelect(address);
+  }
+
   render() {
-    const {handleSelect} = this.props;
+    const {address} = this.state;
     return (
       <PlacesAutocomplete
-        value={this.state.address}
+        value={address}
         onChange={this.handleChange}
-        onSelect={handleSelect}
+        onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>

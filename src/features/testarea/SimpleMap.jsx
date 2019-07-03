@@ -14,13 +14,12 @@ class SimpleMap extends Component {
       <div style={{ height: '300px', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: `${process.env.REACT_APP_GOOGLE_PLACE_API_KEY}`}}
-          defaultCenter={{lat: 69.00, lng: 42.00}}
+          defaultCenter={{lat: 42.00, lng: 42.00}}
           defaultZoom={3}
           center={latlng}
         >
           <AnyReactComponent
-            lat={latlng.lat}
-            lng={latlng.lng}
+            
           />
         </GoogleMapReact>
       </div>

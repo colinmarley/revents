@@ -47,7 +47,10 @@ class TestComponent extends Component {
 				<h3>The Answer is {data} </h3>
 				<Button onClick={incrementCounter} positive content='Increment' />
 				<Button onClick={decrementCounter} negative content='Decrement' />
+				<br/>
+				<br/>
 				<TestPlaceInput handleSelect={this.handleSelect} />
+				<br/>
 				<SimpleMap latlng={latlng} />
 			</div>
 		);
