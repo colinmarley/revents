@@ -6,14 +6,16 @@ const PlaceInput = ({
 	input: { value, onChange, onBlur },
 	width,
 	options,
-	placeholder,
+    placeholder,
+    onSelect,
 	meta: { touched, error },
 }) => {
 	return (
 		<PlacesAutoComplete
 			value={value}
 			onChange={onChange}
-			searchOptions={options}
+            searchOptions={options}
+            onSelect={onSelect}
 		>
 			{({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
 				<Form.Field error={touched && !!error}>
