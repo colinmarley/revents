@@ -1,9 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import TestModal from './TestModal';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 
 const modalLookup = {
-    TestModal
+    TestModal,
+    LoginModal,
+    RegisterModal,
 }
 
 const mapState = (state) => ({
@@ -20,6 +24,8 @@ const ModalManager = ({currentModal}) => {
         renderedModal = <ModalComponent {...modalProps} />
     }
 
+    console.log("rendered modal:");
+    console.log(renderedModal);
     return (
         <span>{renderedModal}</span>
     )
