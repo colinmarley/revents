@@ -17,7 +17,7 @@ const LoginForm = () => {
           name="password"
           component={TextInput}
           type="password"
-          placeholder="password"
+          placeholder="Password"
         />
         <Button fluid size="large" color="teal">
           Login
