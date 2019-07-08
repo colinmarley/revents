@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { incrementCounter, decrementCounter } from './testActions';
-import { geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { Button } from 'semantic-ui-react';
 import TestPlaceInput from './TestPlaceInput';
 import SimpleMap from './SimpleMap';
+import { openModal } from '../modals/modalActions';
 
 const mapState = (state, ownProps) => ({
 	data: state.test.data,
@@ -17,16 +18,18 @@ const mapDispatch = dispatch => ({
 	decrementCounter: () => {
 		dispatch(decrementCounter());
 	},
+	openModal: (modalType, modalProps) => {
+		dispatch(openModal(modalType, modalProps));
+	},
 });
 
 class TestComponent extends Component {
-
 	state = {
 		latlng: {
-			lat: 69.00,
-			lng: 69.00
-		}
-	}
+			lat: 69.0,
+			lng: 69.0,
+		},
+	};
 
 	handleSelect = address => {
 		geocodeByAddress(address)
@@ -40,17 +43,22 @@ class TestComponent extends Component {
 
 	render() {
 		const { latlng } = this.state;
-		const { data, incrementCounter, decrementCounter } = this.props;
+		const { data, incrementCounter, decrementCounter, openModal } = this.props;
 		return (
 			<div>
 				<h1>Test Component</h1>
 				<h3>The Answer is {data} </h3>
 				<Button onClick={incrementCounter} positive content='Increment' />
 				<Button onClick={decrementCounter} negative content='Decrement' />
-				<br/>
-				<br/>
+				<Button
+					onClick={() => openModal('TestModal', { data: 42 })}
+					color='teal'
+					content='Open Modal'
+				/>
+				<br />
+				<br />
 				<TestPlaceInput handleSelect={this.handleSelect} />
-				<br/>
+				<br />
 				<SimpleMap latlng={latlng} />
 			</div>
 		);
