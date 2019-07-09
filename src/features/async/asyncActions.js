@@ -6,7 +6,7 @@ import {
 
 export const asyncActionStart = () => {
 	return {
-		type: ASYNC_ACTION_START,
+        type: ASYNC_ACTION_START,
 	};
 };
 
