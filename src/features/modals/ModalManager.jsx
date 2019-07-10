@@ -24,8 +24,6 @@ const ModalManager = ({currentModal}) => {
         renderedModal = <ModalComponent {...modalProps} />
     }
 
-    console.log("rendered modal:");
-    console.log(renderedModal);
     return (
         <span>{renderedModal}</span>
     )
