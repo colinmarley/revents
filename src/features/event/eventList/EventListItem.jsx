@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Item, Icon, List, Button } from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 class EventListItem extends Component {
@@ -12,7 +12,7 @@ class EventListItem extends Component {
 				<Segment>
 					<Item.Group>
 						<Item>
-							<Item.Image size='tiny' circular src={event.hostPhotoURL} />
+							<Item.Image size='tiny' circular src={event.hostedByURL} />
 							<Item.Content>
 								<Item.Header as='a'>{event.title}</Item.Header>
 								<Item.Description>Hosted by {event.hostedBy}</Item.Description>

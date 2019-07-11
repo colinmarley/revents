@@ -8,7 +8,7 @@ import { openModal } from '../../modals/modalActions';
 import { logout } from '../../auth/authActions';
 
 const mapState = state => ({
-	auth: state.auth,
+	auth: state.firebase.auth,
 });
 
 const mapDispatch = dispatch => ({

@@ -5,11 +5,9 @@ import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../../app/common/form/TextInput';
 import { login } from '../authActions';
 
-const mapDispatch = dispatch => ({
-	login: creds => {
-		dispatch(login(creds));
-	},
-});
+const mapDispatch = {
+	login
+}
 
 const LoginForm = ({login, handleSubmit, error}) => {
 	return (
