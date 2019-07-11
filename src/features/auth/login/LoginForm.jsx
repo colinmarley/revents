@@ -13,7 +13,7 @@ const mapDispatch = dispatch => ({
 
 const LoginForm = ({login, handleSubmit}) => {
 	return (
-		<Form error size='large' onSubmit={handleSubmit(login)} autocomplete='off' >
+		<Form error size='large' onSubmit={handleSubmit(login)} autoComplete='off' >
 			<Segment>
 				<Field
 					name='email'
