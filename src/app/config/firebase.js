@@ -5,13 +5,13 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyCq4mNq39g97x-WhWZh2P2b7ZNEK6MxUxQ',
-	authDomain: 'revents-245522.firebaseapp.com',
-	databaseURL: 'https://revents-245522.firebaseio.com',
-	projectId: 'revents-245522',
-	storageBucket: '',
-	messagingSenderId: '707475352699',
-	appId: '1:707475352699:web:d91970c4c23a7eed',
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: "revents-fbd2b.firebaseapp.com",
+    databaseURL: "https://revents-fbd2b.firebaseio.com",
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: "",
+    messagingSenderId: "913067250394",
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 firebase.initializeApp(firebaseConfig);
