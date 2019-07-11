@@ -13,7 +13,7 @@ export const login = creds => {
 		} catch (error) {
 			console.log(error);
 			throw new SubmissionError({
-				_error: 'error',
+				_error: "Login Failed",
 			});
 		}
 	};
@@ -41,5 +41,8 @@ export const registerUser = user => async (
 		dispatch(closeModal());
 	} catch (error) {
 		console.log(error);
+		throw new SubmissionError({
+			_error: error.message,
+		});
 	}
 };
