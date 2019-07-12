@@ -1,7 +1,6 @@
 import { SubmissionError } from 'redux-form';
 import { closeModal } from '../modals/modalActions';
 
-
 export const login = creds => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
@@ -13,7 +12,7 @@ export const login = creds => {
 		} catch (error) {
 			console.log(error);
 			throw new SubmissionError({
-				_error: "Login Failed",
+				_error: 'Login Failed',
 			});
 		}
 	};
@@ -28,21 +27,40 @@ export const registerUser = user => async (
 	const firestore = getFirestore();
 
 	try {
-		let createdUser = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
-		console.log("created user: ", createdUser);
+		let createdUser = await firebase
+			.auth()
+			.createUserWithEmailAndPassword(user.email, user.password);
+		console.log('created user: ', createdUser);
 		await createdUser.user.updateProfile({
-			displayName: user.displayName
+			displayName: user.displayName,
 		});
 		let newUser = {
 			displayName: user.displayName,
-			createdAt: firestore.FieldValue.serverTimestamp()
-		}
-		await firestore.set(`users/${createdUser.user.uid}`, {...newUser});
+			createdAt: firestore.FieldValue.serverTimestamp(),
+		};
+		await firestore.set(`users/${createdUser.user.uid}`, { ...newUser });
 		dispatch(closeModal());
 	} catch (error) {
 		console.log(error);
 		throw new SubmissionError({
 			_error: error.message,
 		});
+	}
+};
+
+export const socialLogin = selectedProvider => async (
+	dispatch,
+	getState,
+	{ getFirebase }
+) => {
+	const firebase = getFirebase();
+	try {
+		dispatch(closeModal());
+		await firebase.login({
+			provider: selectedProvider,
+			type: 'popup',
+		});
+	} catch (error) {
+		console.log(error);
 	}
 };
