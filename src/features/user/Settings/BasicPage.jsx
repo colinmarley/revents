@@ -5,7 +5,6 @@ import {
 	Header,
 	Divider,
 	Button,
-	Label,
 } from 'semantic-ui-react';
 import { addYears } from 'date-fns';
 import { Field, reduxForm } from 'redux-form';
@@ -77,6 +76,6 @@ class BasicPage extends Component {
 	}
 }
 
-export default reduxForm({ form: 'userProfile', enableReinitialize: true })(
+export default reduxForm({ form: 'userProfile', enableReinitialize: true, destroyOnUnmount: false })(
 	BasicPage
 );
