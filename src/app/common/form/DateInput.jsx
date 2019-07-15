@@ -10,12 +10,13 @@ const DateInput = ({
 	meta: { touched, error },
 	...rest
 }) => {
+	
 	return (
 		<Form.Field error={touched && !!error}>
 			<DatePicker
 				{...rest}
 				placeholderText={placeholder}
-				selected={input.value ? new Date(input.value) : null}
+				selected={input.value? new Date(input.value) : null}
                 onChange={input.onChange}
                 onBlur={input.onBlur}
                 onChangeRaw={(e) => e.preventDefault()}
