@@ -9,7 +9,7 @@ const firebaseConfig = {
     authDomain: "revents-fbd2b.firebaseapp.com",
     databaseURL: "https://revents-fbd2b.firebaseio.com",
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: "",
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: "913067250394",
     appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
