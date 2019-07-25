@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import DropzoneInput from './DropzoneInput';
 import CropperInput from './CropperInput';
-import { uploadProfileImage } from '../../userActions';
+import { uploadProfileImage, deletePhoto } from '../../userActions';
 import { toastr } from 'react-redux-toastr';
 import UserPhotos from './UserPhotos';
 
@@ -34,9 +34,10 @@ const mapState = (state) => ({
 
 const mapDispatch = {
 	uploadProfileImage,
+	deletePhoto
 };
 
-const PhotosPage = ({ uploadProfileImage, photos, profile }) => {
+const PhotosPage = ({ uploadProfileImage, photos, profile, deletePhoto }) => {
 	const [files, setFiles] = useState([]);
 	const [image, setImage] = useState([]);
 
@@ -61,6 +62,14 @@ const PhotosPage = ({ uploadProfileImage, photos, profile }) => {
 		setFiles([]);
 		setImage(null);
 	};
+
+	const handleDeletePhoto = async (photo) => {
+		try {
+			await deletePhoto(photo);
+		} catch (error) {
+			toastr.error('Oops', error.message);
+		}
+	}
 
 	return (
 		<Segment>
@@ -110,7 +119,7 @@ const PhotosPage = ({ uploadProfileImage, photos, profile }) => {
 			</Grid>
 
 			<Divider />
-			<UserPhotos photos={photos} profile={profile} />
+			<UserPhotos photos={photos} profile={profile} deletePhoto={handleDeletePhoto} />
 		</Segment>
 	);
 };
