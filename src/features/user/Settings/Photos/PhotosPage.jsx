@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { firestoreConnect} from 'react-redux-firebase';
 import {
 	Image,
 	Segment,
@@ -13,6 +15,22 @@ import DropzoneInput from './DropzoneInput';
 import CropperInput from './CropperInput';
 import { uploadProfileImage } from '../../userActions';
 import { toastr } from 'react-redux-toastr';
+
+const query = ({auth}) => {
+	return [
+		{
+			collection: 'users',
+			doc: auth.uid,
+			subcollections: [{collection: 'photos'}],
+			storeAs: 'photos'
+		}
+	]
+}
+
+const mapState = (state) => ({
+	auth: state.firebase.auth,
+	profile: state.firebase.profile
+});
 
 const mapDispatch = {
 	uploadProfileImage,
@@ -114,7 +132,7 @@ const PhotosPage = ({ uploadProfileImage }) => {
 	);
 };
 
-export default connect(
-	null,
-	mapDispatch
+export default compose(
+	connect(mapState, mapDispatch),
+	firestoreConnect(auth => query(auth))
 )(PhotosPage);

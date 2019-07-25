@@ -33,7 +33,7 @@ export const uploadProfileImage = (file, fileName) =>
             // Check if user has photo, if not update profile
             if (!userDoc.data().photoURL) {
                 await firebase.updateProfile({
-                    photURL: downloadURL
+                    photoURL: downloadURL
                 });
                 await user.updateProfile({
                     photoURL: downloadURL
@@ -43,7 +43,7 @@ export const uploadProfileImage = (file, fileName) =>
             await firestore.add({
                 collection: 'users',
                 doc: user.uid,
-                subCollections: [{collection: 'photos'}]
+                subcollections: [{collection: 'photos'}]
             }, {
                 name: fileName,
                 url: downloadURL
